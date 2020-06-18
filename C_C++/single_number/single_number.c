@@ -7,13 +7,14 @@ int Single(int num, int array[]){
     for(i=0;i<num;i++){
     	int count = 0; 
 	for(j=0;j<num;j++){
-		if(array[j] == array[i]){
+		if(array[i] == array[j] ){
 			count++;
-		}		
-		if (count == 0){
-			return array[j];
 		}
+	}		
+	if(count == 1){
+		return array[i];
 	}
+	
     }	
     return 0;
 }
