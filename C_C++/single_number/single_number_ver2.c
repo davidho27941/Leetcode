@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int Single(int num, int array[]){
+int Single(int num, int* array){
     int n = array[0];
-    for(int i=1 ; i < num ; i++){
+    for(int i = 1 ; i < num ; i++){
    	n ^= array[i];
     }
     return n;
