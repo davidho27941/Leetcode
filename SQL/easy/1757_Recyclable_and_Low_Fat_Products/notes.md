@@ -58,6 +58,8 @@ We can take a look on the example table. The column `low_fats` and `recyclable` 
 
 ## Solution
 
+* MySQL
+
 ```
 SELECT
     product_id
