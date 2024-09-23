@@ -1,0 +1,84 @@
+# Project Employees I
+
+## Infomation
+
+* Difficulty: Easy
+
+* Information Schema:
+
+```
+Table: Project
+
++-------------+---------+
+| Column Name | Type    |
++-------------+---------+
+| project_id  | int     |
+| employee_id | int     |
++-------------+---------+
+(project_id, employee_id) is the primary key of this table.
+employee_id is a foreign key to Employee table.
+Each row of this table indicates that the employee with employee_id is working on the project with project_id.
+```
+
+## Question
+
+Write an SQL query that reports the average experience years of all the employees for each project, rounded to 2 digits.
+
+Return the result table in any order.
+
+The query result format is in the following example.
+
+## Example
+
+```
+Input: 
+Project table:
++-------------+-------------+
+| project_id  | employee_id |
++-------------+-------------+
+| 1           | 1           |
+| 1           | 2           |
+| 1           | 3           |
+| 2           | 1           |
+| 2           | 4           |
++-------------+-------------+
+Employee table:
++-------------+--------+------------------+
+| employee_id | name   | experience_years |
++-------------+--------+------------------+
+| 1           | Khaled | 3                |
+| 2           | Ali    | 2                |
+| 3           | John   | 1                |
+| 4           | Doe    | 2                |
++-------------+--------+------------------+
+Output: 
++-------------+---------------+
+| project_id  | average_years |
++-------------+---------------+
+| 1           | 2.00          |
+| 2           | 2.50          |
++-------------+---------------+
+Explanation: The average experience years for the first project is (3 + 2 + 1) / 3 = 2.00 and for the second project is (3 + 2) / 2 = 2.50
+```
+
+## Solving Strategy
+
+The strategy to solve this question is:
+
+1. Join `Project` table with `Employee` on `employee_id` to obtain project-employee mapping.
+2. Group by joined table with `project_id`.
+3. Sum up all employees' `experience_years`, then divide by number of employee to get the `average_years`.
+
+## Solution
+
+* MySQL
+
+```
+SELECT
+    DISTINCT p.project_id,
+    ROUND(SUM(e.experience_years)/COUNT(*), 2) as average_years
+FROM Project as p
+LEFT JOIN Employee as e
+    ON p.employee_id = e.employee_id
+GROUP BY p.project_id
+```
